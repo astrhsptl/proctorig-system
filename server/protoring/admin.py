@@ -3,6 +3,8 @@ from .models import (
     Exam, ExamRecord, ExamTask, ExamParticipant, 
     StudentAnswer
 )
+from django.utils.safestring import mark_safe
+
 
 class ExamAdmin(admin.ModelAdmin):
     fields = (
@@ -37,7 +39,7 @@ class TaskAdmin(admin.ModelAdmin):
         'id', 'title', 'discription', 'photo', 'answer',
     )
     list_display = (
-        'id', 'title', 'discription', 'photo', 'answer',
+        'id', 'title', 'discription', 'get_photo', 'answer',
     )
     search_fields = (
         'id', 'title', 'discription',
@@ -45,6 +47,14 @@ class TaskAdmin(admin.ModelAdmin):
     readonly_fields = (
         'id',
     )
+
+
+    def get_photo(self, obj):
+        if obj.photo:
+            print(obj.photo.url)
+            return mark_safe(f'<img src="{obj.photo.url}", width=50, height=50></img>')
+        else:
+            return 'photo'
 
 
 class ExamParticipantAdmin(admin.ModelAdmin):
@@ -80,6 +90,5 @@ admin.site.register(Exam, ExamAdmin)
 admin.site.register(ExamTask, TaskAdmin)
 admin.site.register(ExamRecord, RecordsAdmin)
 admin.site.register(ExamParticipant, ExamParticipantAdmin)
-
 # Result Admin panel
-admin.site.register(AnswersAdmin, StudentAnswer)
+admin.site.register(StudentAnswer, AnswersAdmin)

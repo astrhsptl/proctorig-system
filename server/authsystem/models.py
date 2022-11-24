@@ -34,6 +34,9 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255,)
+    surname = models.CharField(max_length=255,)
+    group = models.CharField(max_length=255,)
     email = models.EmailField(max_length=256, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -66,6 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
         return token
+
 
 class Photos(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
