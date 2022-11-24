@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     # third part
     'authsystem.apps.AuthsystemConfig',
+    'protoring.apps.ProtoringConfig',
 ]
 
 MIDDLEWARE = [
