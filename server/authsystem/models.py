@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings 
 from datetime import datetime, timedelta
 from django.contrib.auth.models import (
-	AbstractBaseUser, BaseUserManager,
+	AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 
 
@@ -32,12 +32,12 @@ class UserManager(BaseUserManager):
 
         return user
 
-
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=256, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -56,6 +56,7 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.username
 
+
     @property
     def token(self):
         dt = datetime.now() + timedelta(days=1)
@@ -65,3 +66,7 @@ class User(AbstractBaseUser):
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
         return token
+
+class Photos(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    path = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False)

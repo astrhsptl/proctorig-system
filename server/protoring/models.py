@@ -15,6 +15,11 @@ class ExamTask(models.Model):
     photo = models.ImageField(upload_to='exam_tasks/%Y/%m/%d', null=True)
     answer = models.CharField(max_length=255)
 
-class Photos(models.Model):
-    user = models.ForeignKey(User, models.CASCADE)
-    path = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False)
+class ExamParticipant(models.Model):
+    exam = models.ForeignKey(Exam, models.CASCADE)
+    student = models.ForeignKey(User, models.CASCADE)
+
+class StudentAnswer(models.Model):
+    task = models.ForeignKey(ExamTask, models.CASCADE)
+    participant = models.ForeignKey(ExamParticipant, models.CASCADE)
+    answer = models.CharField(max_length=255)
