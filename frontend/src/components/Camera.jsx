@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import axios from "axios";
 import Links from '../UI/Links';
 
-const Camera = () => {
+const Camera = ({user}) => {
     function startRecording(cam, recorder, records,){
         records = [];
         recorder = new MediaRecorder(cam.current.stream, {mimeType: "video/webm"});
@@ -28,6 +28,7 @@ const Camera = () => {
         console.log(file)
         let data = new FormData()
         data.append('multipart', file)
+        data.append('user', user.username)
         const resp = axios({
             url: 'http://127.0.0.1:8000/upl',
             method: 'POST',

@@ -1,2 +1,7 @@
 env
+dlib-19.6
+dlib-19.6.tar.bz2
+analyzer.py
+haarcascade_eye.xml
+haarcascade_frontalface_default.xml
 frontend/node_modules
