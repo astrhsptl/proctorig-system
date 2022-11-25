@@ -1,4 +1,5 @@
 from django.urls import path 
+from .views import FileUploadView
 
 from .views import (
     # Main Exam event
@@ -19,6 +20,7 @@ from .views import (
 
 
 urlpatterns = [
+<<<<<<< HEAD
     # Exam Part
     path('exam/', ExamAPIView.as_view()),
     path('exam/<int:pk>', ExamDetailAPIView.as_view()),
@@ -39,3 +41,7 @@ urlpatterns = [
     path('records/', ExamRecordsAPIView.as_view()),
     path('records/<int:pk>', ExamRecordsSetailAPIView.as_view()),
 ]
+=======
+    path('upl', FileUploadView.as_view()),
+]
+>>>>>>> 6a497cd3f17ff7985cccbe6f4b73022857b10829
