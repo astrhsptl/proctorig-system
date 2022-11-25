@@ -1,0 +1,12 @@
+.burger {
+    height: 100px;
+    width: 100px;
+}
+
+.hiddenMenu {
+    display: none;
+}
+
+.hiddenMenu.active {
+    display:  flex;
+}

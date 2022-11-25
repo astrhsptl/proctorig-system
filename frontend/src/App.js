@@ -16,7 +16,7 @@ function App() {
     console.log(`user: ${user.access}`) 
   }, [user])
   return (
-    <div>
+    <div className="App">
       <BrowserRouter>
         <Routes>
           {paths.map(route => 
@@ -24,7 +24,6 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-      <Outlet/>
     </div>
   );
 }

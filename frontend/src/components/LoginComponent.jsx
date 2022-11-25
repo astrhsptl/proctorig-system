@@ -2,15 +2,14 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import AuthSystem from '../API/server';
-
+import Links from '../UI/Links';
+import LocalInput from '../UI/LocalInput';
+import classes from './styles/Login.module.css';
 
 const LoginComponent = ({user, setUser}) => {
   let [localData, setLocalData] = useState({
     username: '',
-    email: '',
     password: '',
-    access: '',
-    refresh: '',
   });
 
   async function getSetTokens() {
@@ -18,14 +17,6 @@ const LoginComponent = ({user, setUser}) => {
       username: localData.username, 
       password: localData.password
     });
-    await setLocalData({
-      username: localData.username,
-      email: result.email,
-      password: localData.password,
-      access: result.access,
-      refresh: result.refresh,
-    });
-    await console.log(result);
     await setUser({
       username: localData.username,
       email: result.email,
@@ -39,11 +30,14 @@ const LoginComponent = ({user, setUser}) => {
     console.log(localData);
   }, [localData]) 
 
+
   return (
     <div>
-      <input type="text" onChange={(e) => setLocalData({username: e.target.value, password: localData.password, access: localData.access, refresh: localData.refresh})}/>
-      <input type="password" onChange={(e) => setLocalData({username: localData.username, password:e.target.value, access: localData.access, refresh: localData.refresh})}/>
-      <button onClick={getSetTokens}>Send</button>
+        <Links></Links>
+      <LocalInput></LocalInput>
+      <input type="text" onChange={(e) => setLocalData({username: e.target.value, password: localData.password,})}/>
+      <input type="password" onChange={(e) => setLocalData({username: localData.username, password:e.target.value,})}/>
+      <button onClick={getSetTokens} >Send</button>
     </div>
   );
 };
