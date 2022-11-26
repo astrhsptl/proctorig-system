@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # second part
     'corsheaders',
+    'drf_yasg',
     'djoser',
     'whitenoise',
     'rest_framework',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     # third part
     'authsystem.apps.AuthsystemConfig',
     'protoring.apps.ProtoringConfig',
+    'preparation.apps.PreparationConfig',
 ]
 
 MIDDLEWARE = [

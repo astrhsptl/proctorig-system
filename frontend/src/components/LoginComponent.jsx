@@ -1,8 +1,9 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
+import { redirect } from 'react-router-dom';
 import AuthSystem from '../API/server';
-import Links from '../UI/Links';
+import Links from "../UI/Links";
+import classes from "./styles/Login.module.css";
 
 const LoginComponent = ({user, setUser}) => {
   let [localData, setLocalData] = useState({
@@ -11,29 +12,41 @@ const LoginComponent = ({user, setUser}) => {
   });
 
   async function getSetTokens() {
-    let result = await AuthSystem.getTokens({
+    let tokens = await AuthSystem.getTokens({
       username: localData.username, 
       password: localData.password
     });
-    await setUser({
+    let login = await AuthSystem.login({
+      username: localData.username, 
+      password: localData.password
+    });
+    await setLocalData({
       username: localData.username,
-      email: result.email,
+      email: login.email,
       password: localData.password,
-      access: result.access,
-      refresh: result.refresh,
+    });
+    await setUser({
+      id: login.id,
+      username: localData.username,
+      name: login.name,
+      surname: login.surname,
+      is_staff: login.is_staff,
+      email: login.email,
+      password: localData.password,
+      access: tokens.access,
+      refresh: tokens.refresh,
     });
   }
 
-  useEffect(() => {
-    console.log(localData);
-  }, [localData]) 
-
   return (
     <div>
-      <Links></Links>
-      <input type="text" onChange={(e) => setLocalData({username: e.target.value, password: localData.password,})}/>
-      <input type="password" onChange={(e) => setLocalData({username: localData.username, password:e.target.value,})}/>
-      <button onClick={getSetTokens}>Send</button>
+      <header>
+        <Links></Links>
+      </header>
+      <div className={classes.main}>
+        <input type="text" placeholder='Username' className={classes.inp} onChange={(e) => setLocalData({username: e.target.value, password: localData.password,})}/>
+        <input type="password" placeholder='Password' className={classes.inp} onChange={(e) => setLocalData({username: localData.username, password:e.target.value,})}/>
+      <div><button className={classes.btn} onClick={getSetTokens}>Send</button></div></div>
     </div>
   );
 };

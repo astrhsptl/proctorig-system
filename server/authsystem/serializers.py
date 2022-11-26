@@ -1,28 +1,28 @@
 from rest_framework import serializers
-from rest_framework.parsers import JSONParser
-from rest_framework.renderers import JSONRenderer
-from .models import User
+from .models import User, Photos
 
+
+class PhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photos
+        fields = '__all__'
 
 class LoginSerializer(serializers.ModelSerializer):
-
     password = serializers.CharField(
         max_length=256
     )
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'token')
+        fields = ('id', 'name', 'surname', 'password', 'username', 'email', 'is_staff', 'token')
         read_only_fields = ['token']
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=256
     )
-    
     class Meta:
         model = User
-        fields = ('username', 'email', 'password',)
+        fields = ('id', 'username', 'email', 'password')
 
     
     def create(self, validated_data):

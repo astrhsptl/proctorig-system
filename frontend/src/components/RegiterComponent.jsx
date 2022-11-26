@@ -4,7 +4,7 @@ import Links from '../UI/Links';
 
 
 const RegiterComponent = ({user, setUser}) => {
-  let [localData, setLocalData] = useState({
+  let [localData, setLocalData] = useState({  
     username: '',
     email: '',
     password: '',

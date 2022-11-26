@@ -1,2 +1,5 @@
 env
+dlib-19.6/
 frontend/node_modules
+haarcascade_frontalface_default.xml
+dlib-19.6.tar.bz2

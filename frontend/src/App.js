@@ -5,6 +5,10 @@ import { paths } from "./configure/pages";
 
 function App() {
   let [user, setUser] = useState({
+    id: '',
+    name: '',
+    surname: '',
+    is_staff: false,
     username: '',
     email: '',
     password: '',
@@ -13,10 +17,11 @@ function App() {
   });
 
   useEffect(() => {
-    console.log(`user: ${user.access}`) 
+    console.log(user) 
   }, [user])
+
   return (
-    <div>
+    <div className="App">
       <BrowserRouter>
         <Routes>
           {paths.map(route => 
@@ -24,7 +29,6 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
-      <Outlet/>
     </div>
   );
 }

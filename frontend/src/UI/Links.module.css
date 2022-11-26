@@ -1,0 +1,31 @@
+a {
+    color: #231d20;
+    text-decoration: transparent;
+}
+
+.btnTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 50px;
+}
+
+.btn:hover{
+    background-color:  #478ac9;
+    color: #eee;
+
+}
+
+a:hover { 
+    color: #eee;
+}

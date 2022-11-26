@@ -3,11 +3,24 @@ from rest_framework import generics
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.permissions import AllowAny
-from .serializers import LoginSerializer, RegisterSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+
+from .models import User, Photos
+from .serializers import (
+    LoginSerializer, RegisterSerializer, PhotoSerializer
+)
+
+class PhotoAPIView(ListCreateAPIView):
+    queryset = Photos.objects.all()
+    serializer_class = PhotoSerializer
+
+class PhotoDetailAPIView(RetrieveAPIView):
+    queryset = Photos.objects.all()
+    serializer_class = PhotoSerializer
+
 
 class AuthAPIView(generics.GenericAPIView):
     def get(self, request):
-        print(request.user)
         user = request.user
         serializer = RegisterSerializer(user)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK) 
@@ -22,7 +35,6 @@ class LoginAPIView(generics.GenericAPIView):
         user = authenticate(username=username, password=password)
         if user:
             serializer = self.serializer_class(user)
-            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_200_OK)
             
         return Response({'error': 'error'}, status=status.HTTP_400_BAD_REQUEST)

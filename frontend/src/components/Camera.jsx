@@ -4,8 +4,9 @@ import { useRef } from 'react';
 import Webcam from "react-webcam";
 import axios from "axios";
 import Links from '../UI/Links';
+import classes from './styles/Home.module.css';
 
-const Camera = () => {
+const Camera = ({user}) => {
     function startRecording(cam, recorder, records,){
         records = [];
         recorder = new MediaRecorder(cam.current.stream, {mimeType: "video/webm"});
@@ -28,8 +29,9 @@ const Camera = () => {
         console.log(file)
         let data = new FormData()
         data.append('multipart', file)
+        data.append('user', user.username)
         const resp = axios({
-            url: 'http://127.0.0.1:8000/upl',
+            url: 'http://127.0.0.1:8000/stream/upl/',
             method: 'POST',
             data: data,
         });
@@ -64,19 +66,12 @@ const Camera = () => {
         }, 3000)}, []);
     return (
         <div>
-            <Links></Links>
-            <Webcam mirrored={true} ref={cam}></Webcam>
-            <button onClick={async (event)=>{
-                let temp = startRecording(cam, mediaRecorder, recordedData);
-                mediaRecorder = temp.mediaRecorder;
-                recordedData = temp.recordedData;
-            }}>Start</button>
-            <button onClick={()=>{
-                file = getRecordedData(mediaRecorder, recordedData)
-            }}>Stop</button>
-            <button onClick={()=>{
-                console.log(uploadFile(file));
-            }}>Send</button>
+            <header>
+                <Links></Links>
+            </header>
+            <div className={classes.main}>
+                <Webcam mirrored={true} className={classes.web} ref={cam}></Webcam>
+            </div>
         </div>
     );
 };
