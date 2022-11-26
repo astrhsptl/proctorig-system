@@ -5,10 +5,15 @@ import AuthSystem from '../API/server';
 import Links from "../UI/Links";
 import classes from "./styles/Login.module.css";
 
+
+
 const LoginComponent = ({user, setUser}) => {
   let [localData, setLocalData] = useState({
     username: '',
+    email: '',
     password: '',
+    access: '',
+    refresh: '',
   });
 
   async function getSetTokens() {
@@ -25,6 +30,7 @@ const LoginComponent = ({user, setUser}) => {
       email: login.email,
       password: localData.password,
     });
+
     await setUser({
       id: login.id,
       username: localData.username,
@@ -40,13 +46,9 @@ const LoginComponent = ({user, setUser}) => {
 
   return (
     <div>
-      <header>
-        <Links></Links>
-      </header>
-      <div className={classes.main}>
-        <input type="text" placeholder='Username' className={classes.inp} onChange={(e) => setLocalData({username: e.target.value, password: localData.password,})}/>
-        <input type="password" placeholder='Password' className={classes.inp} onChange={(e) => setLocalData({username: localData.username, password:e.target.value,})}/>
-      <div><button className={classes.btn} onClick={getSetTokens}>Send</button></div></div>
+      <input type="text" onChange={(e) => setLocalData({username: e.target.value, password: localData.password, access: localData.access, refresh: localData.refresh})}/>
+      <input type="password" onChange={(e) => setLocalData({username: localData.username, password:e.target.value, access: localData.access, refresh: localData.refresh})}/>
+      <button onClick={getSetTokens}>Send</button>
     </div>
   );
 };

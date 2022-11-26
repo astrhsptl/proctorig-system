@@ -3,7 +3,7 @@ import numpy as np
 import face_recognition
 
 def face(vid):
-    filt_path = r'/home/nia/Desktop/proctorig-system/haarcascade_frontalface_default.xml'
+    filt_path = r'/home/nia/Desktop/t/proctorig-system/haarcascade_frontalface_default.xml'
     filt = cv2.CascadeClassifier(filt_path)
     camera = cv2.VideoCapture(vid)
     _, frame = camera.read()

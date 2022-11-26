@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.permissions import AllowAny
+
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 
 from .models import User, Photos
@@ -17,6 +18,11 @@ class PhotoAPIView(ListCreateAPIView):
 class PhotoDetailAPIView(RetrieveAPIView):
     queryset = Photos.objects.all()
     serializer_class = PhotoSerializer
+
+
+
+from .models import User
+from .serializers import LoginSerializer, RegisterSerializer
 
 
 class AuthAPIView(generics.GenericAPIView):

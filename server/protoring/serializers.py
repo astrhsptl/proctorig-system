@@ -10,3 +10,4 @@ class ErrorSerializer(serializers.ModelSerializer):
     class Meta:
         model = ErrorReport
         fields = "__all__"
+

@@ -24,6 +24,7 @@ header {
     height: 400px;
     position: absolute;
     top: 18%;
+
     right: 5%;
     z-index: 2;
     border-radius: 1px dashed white;

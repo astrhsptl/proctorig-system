@@ -8,8 +8,9 @@ from rest_framework.generics import (
 )
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework import views
+from django.conf import settings
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 
@@ -77,3 +78,4 @@ class ReportAPIView(ListCreateAPIView):
 class ReportDetailAPIView(RetrieveAPIView):
     queryset = ErrorReport.objects.all()
     serializer_class = ErrorSerializer
+    
